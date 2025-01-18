@@ -1,11 +1,12 @@
 const express = require("express");
 const app = express();
 const connectToDB = require("./config/database");
-const User = require("./models/user");
+const cookieParser = require("cookie-parser");
 
 const authRouter = require("./routes/auth");
 
 app.use(express.json());
+app.use(cookieParser());
 
 app.use("/", authRouter);
 
