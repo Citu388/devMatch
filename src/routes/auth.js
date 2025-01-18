@@ -28,7 +28,7 @@ authRouter.post("/login", async (req,res) => {
      try{
           const { emailId, password } = req.body;
           const user = await User.findOne({ emailId : emailId});
-          
+
           if(!user){
                throw new Error("Email Id does not exist");
           }
@@ -45,6 +45,11 @@ authRouter.post("/login", async (req,res) => {
           res.status(400).send("ERROR : " + err.message);
      }
      
+})
+
+authRouter.post("/logout", async(req,res) =>{
+     res.cookie("token",null,{expires : new Date(Date.now())});
+     res.send("Logged Out");
 })
 
 module.exports = authRouter;
